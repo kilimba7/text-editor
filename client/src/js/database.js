@@ -1,7 +1,7 @@
 import { openDB } from 'idb';
 
 const initdb = async () =>
-  openDB('jate_db', 1, {
+  openDB('jate', 1, {
     upgrade(db) {
       if (db.objectStoreNames.contains('jate')) {
         console.log('jate database already exists');
@@ -16,11 +16,11 @@ const initdb = async () =>
 export const putDb = async (id, content) => {
   console.log('PUT to the database');
 
-  const contactDb = await openDB('contact_db', 1);
+  const jateDb = await openDB('jate', 1);
 
-  const tx = contactDb.transaction('contacts', 'readwrite');
+  const tx = jateDb.transaction('jate', 'readwrite');
 
-  const store = tx.objectStore('contacts');
+  const store = tx.objectStore('jate');
   
   const request = store.put({ id: id, content: content });
   const result = await request;
@@ -32,7 +32,7 @@ export const putDb = async (id, content) => {
 export const getDb = async () => {
   console.log('GET is working');
   // creating a connection to the db
-  const jateDb = await openDB('jate_db', 1);
+  const jateDb = await openDB('jate', 1);
 
   // creating a tx and setting it to read only since we're just retrieving data
   const tx = jateDb.transaction('jate', 'readonly');

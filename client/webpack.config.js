@@ -6,7 +6,7 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = () => {
   return {
-    mode: 'production',
+    mode: 'development',
     entry: {
       main: './src/js/index.js',
       install: './src/js/install.js'
@@ -25,13 +25,15 @@ module.exports = () => {
 
       new InjectManifest({
         swSrc: './src-sw.js',
-        swDest: 'service-worker.js'
+        swDest: 'src-sw.js'
       }),
 
       new WebpackPwaManifest({
+        fingerprints: false,
+        inject: true,
         name: 'JATE editing application',
         short_name: 'JATE',
-        description: 'edit content',
+        description: 'text editor',
         background_color: '#7eb4e2',
             theme_color: '#7eb4e2',
             start_url: './',
@@ -41,12 +43,6 @@ module.exports = () => {
                 src: path.resolve('src/images/logo.png'),
                 sizes: [96, 128, 192, 256, 384, 512],
                 destination: path.join('assets', 'icons'),
-              },
-              {
-                src: path.resolve('src/images/logo.png'),
-                size: '1024x1024',
-                destination: path.join('assets', 'icons'),
-                purpose: 'maskable'
               }
             ],
       })

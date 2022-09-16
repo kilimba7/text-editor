@@ -20,12 +20,12 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
-        title: 'Webpack Plugin',
+        title: 'Webpack Plug',
       }),
 
       new InjectManifest({
         swSrc: './src-sw.js',
-        swDest: 'src-sw.js'
+        swDest: 'service-worker.js'
       }),
 
       new WebpackPwaManifest({
@@ -34,10 +34,8 @@ module.exports = () => {
         name: 'JATE editing application',
         short_name: 'JATE',
         description: 'text editor',
-        background_color: '#7eb4e2',
-            theme_color: '#7eb4e2',
-            start_url: './',
-            publicPath: './',
+            start_url: '/',
+            publicPath: '/',
             icons: [
               {
                 src: path.resolve('src/images/logo.png'),
@@ -52,10 +50,6 @@ module.exports = () => {
     // TODO: Add CSS loaders and babel to webpack.
     module: {
       rules: [
-      {
-          test: /\.(png|svg|jpg|jpeg|gif)$/i,
-          type: 'asset/resource',
-      },
       {
           test: /\.css$/i,
           use: ['style-loader', 'css-loader']

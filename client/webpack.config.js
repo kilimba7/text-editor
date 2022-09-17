@@ -3,16 +3,13 @@ const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
 
-// injecting my dependent files into one "chunk" (which would be the bundle.js)
+
 module.exports = () => {
   return {
     mode: 'development',
     entry: {
       main: './src/js/index.js',
-      install: './src/js/install.js',
-      database: './src/js/database.js',
-      editor: './src/js/editor.js',
-      header: './src/js/header.js',
+      install: './src/js/install.js'
     },
     output: {
       filename: '[name].bundle.js',

@@ -1,5 +1,6 @@
-const { offlineFallback, warmStrategyCache } = require('workbox-recipes');
-const { CacheFirst } = require('workbox-strategies');
+// fixed staleWhileRevalidate not defined error and got rid of offline fallback
+const { warmStrategyCache } = require('workbox-recipes');
+const { StaleWhileRevalidate, CacheFirst } = require('workbox-strategies');
 const { registerRoute } = require('workbox-routing');
 const { CacheableResponsePlugin } = require('workbox-cacheable-response');
 const { ExpirationPlugin } = require('workbox-expiration');
@@ -26,7 +27,7 @@ warmStrategyCache({
 
 registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 
-// Implemented asset caching (requesting from both cache and network)
+// Implemented asset caching for CSS and JS (requesting from both cache and network)
 registerRoute(
   ({ request }) => ['style', 'script', 'worker'].includes(request.destination), 
   new StaleWhileRevalidate({
